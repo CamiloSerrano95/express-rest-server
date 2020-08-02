@@ -1,28 +1,24 @@
 require('./config/config');
 const express = require('express')
+const mongoose = require('mongoose');
 const app = express()
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-app.get('/user', function (req, res) {
-  res.json('get user');
-})
+app.use(require('./routes/user'));
 
-app.post('/user', function (req, res) {
-    res.json('create user');
-})
+mongoose.connect(process.env.URLDB, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useCreateIndex: true
+}, (err, res) => {
+  if (err) throw err;
+  console.log('Data base is online in port 27017');
+});
 
-app.put('/user/:id', function (req, res) {
-    res.json('update user');
-})
-
-app.delete('/user/:id', function (req, res) {
-    let id = req.params.id;
-    res.json('delete user ' + id);
-})
- 
 app.listen(process.env.PORT, () => {
     console.log(`Listen on port ${process.env.PORT}`);
 })
