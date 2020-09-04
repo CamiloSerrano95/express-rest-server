@@ -7,6 +7,7 @@ var productoSchema = new Schema({
     price_uni: { type: Number, required: [true, 'El precio únitario es necesario'] },
     description: { type: String, required: false },
     avalaible: { type: Boolean, required: true, default: true },
+    img: { type: String, required: false },
     categorie_id: { type: Schema.Types.ObjectId, ref: 'Categorie', required: true },
     user_id: { type: Schema.Types.ObjectId, ref: 'User' }
 });
